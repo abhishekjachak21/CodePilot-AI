@@ -1,0 +1,19 @@
+# Initial sprint tracking from BMAD epic headings. Re-run the installed sprint-planning workflow locally to validate.
+generated: 10-25-2026 20:00
+last_updated: 10-25-2026 20:00
+project: CodePilot-AI
+project_key: CPAI
+tracking_system: file-system
+story_location: "bmad-output/implementation-artifacts"
+development_status:
+  epic-1: backlog
+  1-1-submit-a-java-snippet: ready-for-dev
+  1-2-return-a-structured-review-report: ready-for-dev
+  1-3-inspect-findings-in-the-browser: ready-for-dev
+  epic-1-retrospective: optional
+  epic-2: backlog
+  2-1-detect-selected-java-code-patterns: ready-for-dev
+  2-2-explain-findings-and-suggest-remediation: ready-for-dev
+  2-3-add-optional-local-ai-explanation-with-fallback: ready-for-dev
+  epic-2-retrospective: optional
+action_items: []
