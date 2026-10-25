@@ -32,7 +32,7 @@ public class JavaRuleAnalyzer {
                 "Use a logging framework and an appropriate log level.",
                 "private static final Logger log = LoggerFactory.getLogger(YourClass.class);\nlog.info(\"Meaningful message\");","RULE"));
 
-            if (line.matches("catch\\s*\\([^)]*\\)\\s*\\{\\s*}") || line.matches("}\\s*catch\\s*\\([^)]*\\)\\s*\\{\\s*}")) findings.add(new CodeReviewFinding(
+            if (isEmptyCatch(lines, i, line)) findings.add(new CodeReviewFinding(
                 "JAVA-BUG-001","Potential Bug","MEDIUM","Empty catch block",n,line,
                 "The exception is swallowed, which can hide failures and leave the application in an unexpected state.",
                 "Handle the exception, log it with context, or rethrow it.",
@@ -49,5 +49,20 @@ public class JavaRuleAnalyzer {
             if (line.equals("}") && inLoop) inLoop = false;
         }
         return findings;
+    }
+
+    private boolean isEmptyCatch(String[] lines, int index, String line) {
+        if (!line.contains("catch")) return false;
+        int openingBrace = line.indexOf('{');
+        if (openingBrace < 0) return false;
+        String remainder = line.substring(openingBrace + 1).trim();
+        if (remainder.equals("}")) return true;
+        if (!remainder.isEmpty()) return false;
+        for (int i = index + 1; i < lines.length; i++) {
+            String next = lines[i].trim();
+            if (next.isEmpty()) continue;
+            return next.equals("}");
+        }
+        return false;
     }
 }
